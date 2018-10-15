@@ -98,7 +98,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../../#mm-rx" tabindex="1" class="md-skip">
+      <a href="../../#core-fetchjsonstring" tabindex="1" class="md-skip">
         跳转至
       </a>
     
@@ -306,9 +306,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        fetchJSONString
+      </label>
+    
     <a href="./" title="fetchJSONString" class="md-nav__link md-nav__link--active">
       fetchJSONString
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -539,6 +568,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -552,7 +597,71 @@
                   <a href="https://github.com/MoyaMapper/MoyaMapper/edit/master/docs/core/fetchJSONString.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="mm-rx">MM-Rx<a class="headerlink" href="#mm-rx" title="Permanent link">&para;</a></h1>
+                <h1 id="core-fetchjsonstring">Core-fetchJSONString<a class="headerlink" href="#core-fetchjsonstring" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><span class="c1">/// 获取指定路径的原始json字符串</span>
+<span class="c1">///</span>
+<span class="c1">/// - Parameters:</span>
+<span class="c1">///   - path: JSON数据路径 (默认为根路径)</span>
+<span class="c1">///   - keys: 目标数据子路径  (例： [0, &quot;_id&quot;])</span>
+<span class="c1">/// - Returns: 指定路径的原始json字符串</span>
+<span class="kd">func</span> <span class="nf">fetchJSONString</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="p">[</span><span class="n">JSONSubscriptType</span><span class="p">]</span> <span class="p">=</span> <span class="p">[])</span> <span class="p">-&gt;</span> <span class="nb">String</span>
+</pre></div>
+
+
+<blockquote>
+<p><code>Response</code> 转换为 <code>String</code> </p>
+<ul>
+<li><code>path</code>  指定取值路径，可以设置多级，如 <code>retBody&gt;name</code> ，如果为 <code>nil</code> ，取根路径 <code>""</code></li>
+<li><code>key</code> 在<code>path</code>的前提下，再指定详细的取值路径，可为 <code>Int</code> 或 <code>String</code></li>
+</ul>
+</blockquote>
+<p><font color="red">ps:  当前<code>Response</code> 的 <code>ModelableParameterType</code> 可以通过 <code>MoyaMapperPlugin</code> 进行统一设置 </font></p>
+<hr>
+
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p><img alt="success-obj" src="https://github.com/MoyaMapper/MoyaMapper.github.io/raw/master/img/code/success-obj.png" /></p>
+<ul>
+<li><code>""</code></li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">json</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">fetchJSONString</span><span class="p">()</span>
+<span class="bp">print</span><span class="p">(</span><span class="s">&quot;json -- </span><span class="si">\(</span><span class="n">json</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>json -- {
+  &quot;retStatus&quot; : &quot;000&quot;,
+  &quot;retMsg&quot; : &quot;获取数据成功&quot;,
+  &quot;retBody&quot; : {
+    &quot;name&quot; : &quot;MoyaMapper&quot;,
+    &quot;organization&quot; : &quot;https:\/\/github.com\/MoyaMapper&quot;,
+    &quot;github&quot; : &quot;https:\/\/github.com\/LinXunFeng&quot;,
+    &quot;avatar&quot; : &quot;https:\/\/avatars0.githubusercontent.com\/u\/19367531?s=460&amp;v=4&quot;,
+    &quot;age&quot; : 23,
+    &quot;author&quot; : &quot;LinXunFeng&quot;,
+    &quot;logoUrl&quot; : &quot;https:\/\/github.com\/MoyaMapper\/MoyaMapper.github.io\/raw\/master\/img\/MoyaMapper.png&quot;
+  }
+}
+</pre></div>
+
+
+<ul>
+<li><code>"retBody"</code></li>
+</ul>
+<div class="codehilite"><pre><span></span>let json = response.fetchJSONString(path: &quot;retBody&quot;)
+print(&quot;json -- \(json)&quot;)
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>json -- {
+  &quot;name&quot; : &quot;MoyaMapper&quot;,
+  &quot;organization&quot; : &quot;https:\/\/github.com\/MoyaMapper&quot;,
+  &quot;github&quot; : &quot;https:\/\/github.com\/LinXunFeng&quot;,
+  &quot;avatar&quot; : &quot;https:\/\/avatars0.githubusercontent.com\/u\/19367531?s=460&amp;v=4&quot;,
+  &quot;age&quot; : 23,
+  &quot;author&quot; : &quot;LinXunFeng&quot;,
+  &quot;logoUrl&quot; : &quot;https:\/\/github.com\/MoyaMapper\/MoyaMapper.github.io\/raw\/master\/img\/MoyaMapper.png&quot;
+}
+</pre></div>
                 
                   
                 

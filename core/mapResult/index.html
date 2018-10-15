@@ -318,9 +318,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        mapResult
+      </label>
+    
     <a href="./" title="mapResult" class="md-nav__link md-nav__link--active">
       mapResult
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -539,6 +568,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -553,8 +598,8 @@
                 
                 
                 <h1 id="core-mapresult">Core-mapResult<a class="headerlink" href="#core-mapresult" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">typealias</span> <span class="n">MoyaMapperResult</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Bool</span><span class="p">,</span> <span class="nb">String</span><span class="p">)</span>
-<span class="kd">public</span> <span class="kd">typealias</span> <span class="n">ModelableParamsBlock</span> <span class="p">=</span> <span class="p">()-&gt;(</span><span class="n">ModelableParameterType</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="kd">typealias</span> <span class="n">MoyaMapperResult</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Bool</span><span class="p">,</span> <span class="nb">String</span><span class="p">)</span>
+<span class="kd">typealias</span> <span class="n">ModelableParamsBlock</span> <span class="p">=</span> <span class="p">()-&gt;(</span><span class="n">ModelableParameterType</span><span class="p">)</span>
 </pre></div>
 
 
@@ -562,7 +607,7 @@
 <span class="c1">///</span>
 <span class="c1">/// - Parameter params: 自定义解析的设置回调</span>
 <span class="c1">/// - Returns: MoyaMapperResult</span>
-<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapResult</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">ModelableParamsBlock</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">MoyaMapperResult</span>
+<span class="kd">func</span> <span class="nf">mapResult</span><span class="p">(</span><span class="n">params</span><span class="p">:</span> <span class="n">ModelableParamsBlock</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">MoyaMapperResult</span>
 </pre></div>
 
 
@@ -579,6 +624,32 @@
 </blockquote>
 <p><code>params</code>  用于指定特殊取值路径，在这里主要指定 <code>successValue</code> <code>statusCodeKey</code> <code>tipStrKey</code> </p>
 <p>如果为 <code>nil</code> ，则取当前 <code>Response</code> 的 <code>ModelableParameterType</code> 为取值依据</p>
+<p><font color="red">ps:  当前<code>Response</code> 的 <code>ModelableParameterType</code> 可以通过 <code>MoyaMapperPlugin</code> 进行统一设置 </font></p>
+<hr>
+
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p><img alt="success-obj" src="https://github.com/MoyaMapper/MoyaMapper.github.io/raw/master/img/code/success-obj.png" /></p>
+<p>重新定义一个 <code>ModelableParameterType</code></p>
+<div class="codehilite"><pre><span></span><span class="c1">// </span><span class="cs">MARK:</span><span class="c1">- 自定义网络结果参数</span>
+<span class="kd">struct</span> <span class="nc">CustomNetParameter</span><span class="p">:</span> <span class="n">ModelableParameterType</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nv">successValue</span> <span class="p">=</span> <span class="s">&quot;000&quot;</span>
+    <span class="kd">var</span> <span class="nv">statusCodeKey</span> <span class="p">=</span> <span class="s">&quot;retStatus&quot;</span>
+    <span class="kd">var</span> <span class="nv">tipStrKey</span> <span class="p">=</span> <span class="s">&quot;retMsg&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>调用 <code>mapResult</code> 并在闭包中返回 <code>ModelableParameterType</code>  实例</p>
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="p">(</span><span class="n">isSuccess</span><span class="p">,</span> <span class="n">tipStr</span><span class="p">)</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">mapResult</span> <span class="p">{</span>  <span class="n">CustomNetParameter</span><span class="p">()</span> <span class="p">}</span>
+<span class="bp">print</span><span class="p">(</span><span class="s">&quot;isSuccess -- </span><span class="si">\(</span><span class="n">isSuccess</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="bp">print</span><span class="p">(</span><span class="s">&quot;tipStr -- </span><span class="si">\(</span><span class="n">tipStr</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>打印结果</p>
+<div class="codehilite"><pre><span></span>isSuccess -- true
+tipStr -- 获取数据成功
+</pre></div>
                 
                   
                 

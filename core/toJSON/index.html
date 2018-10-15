@@ -282,9 +282,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        toJSON
+      </label>
+    
     <a href="./" title="toJSON" class="md-nav__link md-nav__link--active">
       toJSON
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -539,6 +568,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -553,6 +598,38 @@
                 
                 
                 <h1 id="core-tojson">Core-toJSON<a class="headerlink" href="#core-tojson" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><span class="c1">/// Response -&gt; JSON</span>
+<span class="c1">///</span>
+<span class="c1">/// - Parameter modelKey: 模型数据路径</span>
+<span class="c1">/// - Returns: JSON对象</span>
+<span class="kd">func</span> <span class="nf">toJSON</span><span class="p">(</span><span class="n">modelKey</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">JSON</span>
+</pre></div>
+
+
+<blockquote>
+<p><code>Response</code> 转换为 <code>JSON</code></p>
+<p>返回值 为 <code>SwiftyJSON</code> 的 <code>JSON</code>  对象</p>
+</blockquote>
+<hr>
+
+<p><code>modelKey</code> 用于指定特殊取值路径，在这里主要指定 <code>ModelableParameterType</code> 的 <code>modelKey</code> </p>
+<p>如果为 <code>nil</code> ，则取当前 <code>Response</code> 的 <code>ModelableParameterType</code> 为取值依据</p>
+<p><font color="red">ps:  当前<code>Response</code> 的 <code>ModelableParameterType</code> 可以通过 <code>MoyaMapperPlugin</code> 进行统一设置 </font></p>
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<p><img alt="success-obj" src="https://github.com/MoyaMapper/MoyaMapper.github.io/raw/master/img/code/success-obj.png" /></p>
+<p>调用 <code>toJSON</code> 并传入需要指定的 <code>modelKey</code></p>
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">json</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">toJSON</span><span class="p">(</span><span class="n">modelKey</span><span class="p">:</span> <span class="s">&quot;retBody&quot;</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nv">name</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;author&quot;</span><span class="p">].</span><span class="n">stringValue</span>
+<span class="kd">let</span> <span class="nv">age</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;age&quot;</span><span class="p">].</span><span class="n">intValue</span>
+<span class="bp">print</span><span class="p">(</span><span class="s">&quot;author -- </span><span class="si">\(</span><span class="n">name</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="bp">print</span><span class="p">(</span><span class="s">&quot;age -- </span><span class="si">\(</span><span class="n">age</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>打印结果</p>
+<div class="codehilite"><pre><span></span><span class="n">author</span> <span class="o">--</span> <span class="n">LinXunFeng</span>
+<span class="n">age</span> <span class="o">--</span> <span class="mi">23</span>
+</pre></div>
                 
                   
                 
