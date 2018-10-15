@@ -643,14 +643,14 @@
 <span class="c1">// </span><span class="cs">MARK:</span><span class="c1">- 自定义网络结果参数</span>
 <span class="kd">struct</span> <span class="nc">CustomNetParameter</span><span class="p">:</span> <span class="n">ModelableParameterType</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nv">successValue</span> <span class="p">=</span> <span class="s">&quot;000&quot;</span>
-    <span class="kd">var</span> <span class="nv">statusCodeKey</span> <span class="p">=</span> <span class="s">&quot;retCode&quot;</span>
+    <span class="kd">var</span> <span class="nv">statusCodeKey</span> <span class="p">=</span> <span class="s">&quot;retStatus&quot;</span>
     <span class="kd">var</span> <span class="nv">tipStrKey</span> <span class="p">=</span> <span class="s">&quot;retMsg&quot;</span>
     <span class="kd">var</span> <span class="nv">modelKey</span> <span class="p">=</span> <span class="s">&quot;retBody&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<p>转模型数组</p>
+<p>转 <code>MoyaMapperResult</code> + 模型数组</p>
 <div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">models</span><span class="p">)</span> <span class="n">response</span><span class="p">.</span><span class="n">mapArrayResult</span><span class="p">(</span><span class="n">MMModel</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span> <span class="p">{</span> <span class="n">CustomNetParameter</span><span class="p">()</span> <span class="p">}</span>
 <span class="kd">let</span> <span class="nv">name</span> <span class="p">=</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">name</span>
 <span class="bp">print</span><span class="p">(</span><span class="s">&quot;result -- </span><span class="si">\(</span><span class="n">result</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
@@ -660,7 +660,7 @@
 
 
 <p>打印结果</p>
-<div class="codehilite"><pre><span></span>result -- (false, &quot;获取数据成功&quot;)
+<div class="codehilite"><pre><span></span>result -- (true, &quot;获取数据成功&quot;)
 count -- 4
 name -- MoyaMapper
 </pre></div>

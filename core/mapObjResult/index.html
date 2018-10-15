@@ -643,7 +643,7 @@
 <span class="c1">// </span><span class="cs">MARK:</span><span class="c1">- 自定义网络结果参数</span>
 <span class="kd">struct</span> <span class="nc">CustomNetParameter</span><span class="p">:</span> <span class="n">ModelableParameterType</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nv">successValue</span> <span class="p">=</span> <span class="s">&quot;000&quot;</span>
-    <span class="kd">var</span> <span class="nv">statusCodeKey</span> <span class="p">=</span> <span class="s">&quot;retCode&quot;</span>
+    <span class="kd">var</span> <span class="nv">statusCodeKey</span> <span class="p">=</span> <span class="s">&quot;retStatus&quot;</span>
     <span class="kd">var</span> <span class="nv">tipStrKey</span> <span class="p">=</span> <span class="s">&quot;retMsg&quot;</span>
     <span class="kd">var</span> <span class="nv">modelKey</span> <span class="p">=</span> <span class="s">&quot;retBody&quot;</span>
 <span class="p">}</span>
@@ -658,7 +658,7 @@
 
 
 <p>打印结果</p>
-<div class="codehilite"><pre><span></span>result -- (false, &quot;获取数据成功&quot;)
+<div class="codehilite"><pre><span></span>result -- (true, &quot;获取数据成功&quot;)
 name -- MoyaMapper
 </pre></div>
                 

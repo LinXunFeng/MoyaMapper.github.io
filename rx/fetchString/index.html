@@ -98,7 +98,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../../#mm-rx" tabindex="1" class="md-skip">
+      <a href="../../#rx-fetchstring" tabindex="1" class="md-skip">
         跳转至
       </a>
     
@@ -414,9 +414,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        fetchString
+      </label>
+    
     <a href="./" title="fetchString" class="md-nav__link md-nav__link--active">
       fetchString
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -539,6 +568,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -552,7 +597,44 @@
                   <a href="https://github.com/MoyaMapper/MoyaMapper/edit/master/docs/rx/fetchString.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="mm-rx">MM-Rx<a class="headerlink" href="#mm-rx" title="Permanent link">&para;</a></h1>
+                <h1 id="rx-fetchstring">Rx-fetchString<a class="headerlink" href="#rx-fetchstring" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><span class="c1">/// 获取指定路径的字符串</span>
+<span class="c1">///</span>
+<span class="c1">/// - Parameters:</span>
+<span class="c1">///   - path: JSON数据路径 (默认为模型数据路径)</span>
+<span class="c1">///   - keys: 目标数据子路径  (例： [0, &quot;_id&quot;])</span>
+<span class="kd">func</span> <span class="nf">fetchString</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="p">[</span><span class="n">JSONSubscriptType</span><span class="p">]</span> <span class="p">=</span> <span class="p">[])</span> <span class="p">-&gt;</span> <span class="n">Observable</span><span class="p">&lt;</span><span class="nb">String</span><span class="p">&gt;</span>
+
+<span class="kd">func</span> <span class="nf">fetchString</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="p">[</span><span class="n">JSONSubscriptType</span><span class="p">]</span> <span class="p">=</span> <span class="p">[])</span> <span class="p">-&gt;</span> <span class="n">Single</span><span class="p">&lt;</span><span class="nb">String</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>详细说明请参考 <code>Core</code> 目录下的 <a href="https://moyamapper.github.io/core/fetchString/">fetchString</a> ，这里就不再赘述</p>
+<hr>
+
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">rxRequest</span><span class="p">:</span> <span class="n">Single</span><span class="p">&lt;</span><span class="n">Response</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p><img alt="success-obj" src="https://github.com/MoyaMapper/MoyaMapper.github.io/raw/master/img/code/success-obj.png" /></p>
+<div class="codehilite"><pre><span></span><span class="n">rxRequest</span><span class="p">.</span><span class="n">fetchString</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s">&quot;retBody&gt;name&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">str</span> <span class="k">in</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;name -- </span><span class="si">\(</span><span class="n">str</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="p">}).</span><span class="n">disposed</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="n">disposeBag</span><span class="p">)</span>
+
+<span class="c1">// name -- MoyaMapper</span>
+</pre></div>
+
+
+<p><img alt="success-array" src="https://github.com/MoyaMapper/MoyaMapper.github.io/raw/master/img/code/success-array.png" /></p>
+<div class="codehilite"><pre><span></span><span class="n">rxRequest</span><span class="p">.</span><span class="n">fetchString</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="s">&quot;retBody&quot;</span><span class="p">,</span> <span class="n">keys</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;github&quot;</span><span class="p">])</span>
+    <span class="p">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">str</span> <span class="k">in</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;github -- </span><span class="si">\(</span><span class="n">str</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="p">}).</span><span class="n">disposed</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="n">disposeBag</span><span class="p">)</span>
+
+<span class="c1">// github -- https://github.com/LinXunFeng/RxSwiftDemo</span>
+</pre></div>
                 
                   
                 

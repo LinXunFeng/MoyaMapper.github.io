@@ -98,7 +98,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="../../#mm-rx" tabindex="1" class="md-skip">
+      <a href="../../#rx-maparray" tabindex="1" class="md-skip">
         跳转至
       </a>
     
@@ -474,9 +474,38 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        mapArray
+      </label>
+    
     <a href="./" title="mapArray" class="md-nav__link md-nav__link--active">
       mapArray
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -539,6 +568,22 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -552,7 +597,61 @@
                   <a href="https://github.com/MoyaMapper/MoyaMapper/edit/master/docs/rx/mapArray.md" title="编辑此页" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="mm-rx">MM-Rx<a class="headerlink" href="#mm-rx" title="Permanent link">&para;</a></h1>
+                <h1 id="rx-maparray">Rx-mapArray<a class="headerlink" href="#rx-maparray" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><span class="c1">/// - Parameters:</span>
+<span class="c1">///   - type: 模型类型</span>
+<span class="c1">///   - modelKey: 模型路径</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapArray</span><span class="p">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="n">Modelable</span><span class="p">&gt;(</span><span class="kc">_</span> <span class="n">type</span><span class="p">:</span> <span class="n">T</span><span class="p">.</span><span class="kr">Type</span><span class="p">,</span> <span class="n">modelKey</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Observable</span><span class="o">&lt;</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">&gt;</span>
+
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapArray</span><span class="p">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="n">Modelable</span><span class="p">&gt;(</span><span class="kc">_</span> <span class="n">type</span><span class="p">:</span> <span class="n">T</span><span class="p">.</span><span class="kr">Type</span><span class="p">,</span> <span class="n">modelKey</span><span class="p">:</span> <span class="nb">String</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Single</span><span class="o">&lt;</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>详细说明请参考 <code>Core</code> 目录下的 <a href="https://moyamapper.github.io/core/mapArray/">mapArray</a> ，这里就不再赘述</p>
+<hr>
+
+<h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">rxRequest</span><span class="p">:</span> <span class="n">Single</span><span class="p">&lt;</span><span class="n">Response</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p><img alt="success-array" src="https://github.com/MoyaMapper/MoyaMapper.github.io/raw/master/img/code/success-array.png" /></p>
+<div class="codehilite"><pre><span></span><span class="kd">struct</span> <span class="nc">MMModel</span><span class="p">:</span> <span class="n">Modelable</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nv">name</span> <span class="p">:</span> <span class="nb">String</span>
+    <span class="kd">var</span> <span class="nv">organization</span> <span class="p">:</span> <span class="nb">String</span>
+    <span class="kd">var</span> <span class="nv">logoUrl</span> <span class="p">:</span> <span class="nb">String</span>
+    <span class="kd">var</span> <span class="nv">github</span> <span class="p">:</span> <span class="nb">String</span>
+    <span class="kd">var</span> <span class="nv">avatar</span> <span class="p">:</span> <span class="nb">String</span>
+    <span class="kd">var</span> <span class="nv">author</span> <span class="p">:</span> <span class="nb">String</span>
+    <span class="kd">var</span> <span class="nv">age</span> <span class="p">:</span> <span class="nb">Int</span>
+
+    <span class="kd">init</span><span class="p">(</span><span class="kc">_</span> <span class="n">json</span><span class="p">:</span> <span class="n">JSON</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">name</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">].</span><span class="n">stringValue</span>
+        <span class="n">organization</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;organization&quot;</span><span class="p">].</span><span class="n">stringValue</span>
+        <span class="n">logoUrl</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;logoUrl&quot;</span><span class="p">].</span><span class="n">stringValue</span>
+        <span class="n">github</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;github&quot;</span><span class="p">].</span><span class="n">stringValue</span>
+        <span class="n">avatar</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;avatar&quot;</span><span class="p">].</span><span class="n">stringValue</span>
+        <span class="n">author</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;author&quot;</span><span class="p">].</span><span class="n">stringValue</span>
+        <span class="n">age</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;age&quot;</span><span class="p">].</span><span class="n">intValue</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>转模型数组</p>
+<div class="codehilite"><pre><span></span><span class="n">rxRequest</span><span class="p">.</span><span class="n">mapArray</span><span class="p">(</span><span class="n">MMModel</span><span class="p">.</span><span class="kc">self</span><span class="p">,</span> <span class="n">modelKey</span><span class="p">:</span> <span class="s">&quot;retBody&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="n">models</span> <span class="k">in</span>
+        <span class="kd">let</span> <span class="nv">name</span> <span class="p">=</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">name</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;count -- </span><span class="si">\(</span><span class="n">models</span><span class="p">.</span><span class="bp">count</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="bp">print</span><span class="p">(</span><span class="s">&quot;name -- </span><span class="si">\(</span><span class="n">name</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="p">}).</span><span class="n">disposed</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="n">disposeBag</span><span class="p">)</span>
+</pre></div>
+
+
+<p>打印结果</p>
+<div class="codehilite"><pre><span></span>count -- 4
+name -- MoyaMapper
+</pre></div>
                 
                   
                 
