@@ -585,15 +585,15 @@
 
 
 <blockquote>
-<p><code>type</code> : <code>ModelableParameterType</code>   用于定义字段路径</p>
-<p><code>transformError</code> : <code>Bool</code>  默认为 true，用来</p>
+<p><code>type</code> : <code>ModelableParameterType</code>   用于定义字段路径，做为全局解析数据的依据</p>
+<p><code>transformError</code> : <code>Bool</code>  是否当网络请求失败时，自动转换请求结果，默认为 true</p>
 </blockquote>
-<p>当请求失败的时候 此时的 <code>result.response</code> 为 <code>nil</code>，根据<code>transformError</code>是否<code>true</code> 判断是否创建一个自定义的 <code>response</code> 并返回出去。</p>
-<p>这里将请求失败进行了统一，无论是服务器还是自身设备的问题，statusCode 都为 MMStatusCode.loadFail，但是 errorDescription 会保持原来的样子。</p>
+<p>当请求失败的时候，此时的 <code>result.response</code> 为 <code>nil</code>，根据<code>transformError</code>是否<code>true</code> 判断是否创建一个自定义的 <code>response</code> 并返回出去。</p>
+<p>这里将请求失败进行了统一处理，无论是服务器还是自身网络的问题，statusCode 都为 MMStatusCode.loadFail，但是 errorDescription 会保持原来的样子。</p>
 <p>本来请求的数据</p>
 <p><img alt="success-obj" src="../img/code/success-obj.png" /></p>
 <p>现在关闭网络</p>
-<p>不处理 <code>Response</code> 为 <code>nil</code> </p>
+<p>正常情况下，即不做任何不处理的时候， <code>Response</code> 为 <code>nil</code> </p>
 <p>经过 <code>MoyaMapperPlugin</code> 处理的后返回的 <code>Response</code> 如图</p>
 <p><img alt="success-obj" src="../img/code/plugin.png" /></p>
 <p><code>retStatus</code> 值会从枚举 <code>MMStatusCode</code> 中取  <code>loadFail.rawValue</code> ，即 <code>700</code> </p>

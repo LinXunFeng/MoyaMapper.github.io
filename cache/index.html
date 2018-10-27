@@ -527,9 +527,45 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Cache
+      </label>
+    
     <a href="./" title="Cache" class="md-nav__link md-nav__link--active">
       Cache
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="基本使用" class="md-nav__link">
+    基本使用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="缓存网络请求" class="md-nav__link">
+    缓存网络请求
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -563,6 +599,29 @@
     
   
   
+    <label class="md-nav__title" for="__toc">目录</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="基本使用" class="md-nav__link">
+    基本使用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="缓存网络请求" class="md-nav__link">
+    缓存网络请求
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -577,7 +636,128 @@
                 
                 
                 <h1 id="mm-cache">MM-Cache<a class="headerlink" href="#mm-cache" title="Permanent link">&para;</a></h1>
-<p>It's coming</p>
+<h2 id="_1">基本使用<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span>// 缓存
+@discardableResult
+MMCache.shared.cache`XXX`(value : XXX, key: String, cacheContainer: MMCache.CacheContainer = .RAM)  -&gt; Bool
+// 取舍
+MMCache.shared.fetch`XXX`Cache(key: String, cacheContainer: MMCache.CacheContainer = .RAM)
+</pre></div>
+
+
+<p>缓存成功会返回一个 <code>Bool</code> 值，这里可不接收</p>
+<table>
+<thead>
+<tr>
+<th>XXX 所支持类型</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bool</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Double</td>
+<td>-</td>
+</tr>
+<tr>
+<td>String</td>
+<td>-</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Modelable</td>
+<td>[Modelable]</td>
+</tr>
+<tr>
+<td>Moya.Response</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Int</td>
+<td>UInt</td>
+</tr>
+<tr>
+<td>Int8</td>
+<td>UInt8</td>
+</tr>
+<tr>
+<td>Int16</td>
+<td>UInt16</td>
+</tr>
+<tr>
+<td>Int32</td>
+<td>UInt32</td>
+</tr>
+<tr>
+<td>Int64</td>
+<td>UInt64</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>其中，除了 <code>Moya.Response</code> 之外，其它类型皆是通过 <code>JSON</code> 来实现缓存</p>
+</blockquote>
+<p>所以，如果你想清除这些类型的缓存，只需要调用如下方法即可</p>
+<div class="codehilite"><pre><span></span><span class="p">@</span><span class="n">discardableResult</span>
+<span class="kd">func</span> <span class="nf">removeJSONCache</span><span class="p">(</span><span class="kc">_</span> <span class="n">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">cacheContainer</span><span class="p">:</span> <span class="n">MMCache</span><span class="p">.</span><span class="n">CacheContainer</span> <span class="p">=</span> <span class="p">.</span><span class="n">RAM</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span>
+
+<span class="p">@</span><span class="n">discardableResult</span>
+<span class="kd">func</span> <span class="nf">removeAllJSONCache</span><span class="p">(</span><span class="n">cacheContainer</span><span class="p">:</span> <span class="n">MMCache</span><span class="p">.</span><span class="n">CacheContainer</span> <span class="p">=</span> <span class="p">.</span><span class="n">RAM</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span>
+</pre></div>
+
+
+<p>清除 <code>Moya.Response</code> 则使用如下两个方法</p>
+<div class="codehilite"><pre><span></span><span class="p">@</span><span class="n">discardableResult</span>
+<span class="kd">func</span> <span class="nf">removeResponseCache</span><span class="p">(</span><span class="kc">_</span> <span class="n">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span>
+
+<span class="p">@</span><span class="n">discardableResult</span>
+<span class="kd">func</span> <span class="nf">removeAllResponseCache</span><span class="p">()</span> <span class="p">-&gt;</span> <span class="nb">Bool</span>
+</pre></div>
+
+
+<h2 id="_2">缓存网络请求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * APP第一次启动并进行网络请求，网络数据将缓存起来</span>
+<span class="cm"> * APP再次启动并进行网络请求时，会先加载缓存，再加载网络数据</span>
+<span class="cm"> * 其它情况只会加载网络数据</span>
+<span class="cm"> */</span>
+<span class="n">lxfNetTool</span><span class="p">.</span><span class="n">rx</span><span class="p">.</span><span class="n">cacheRequest</span><span class="p">(.</span><span class="n">data</span><span class="p">(</span><span class="n">type</span><span class="p">:</span> <span class="p">.</span><span class="n">all</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="p">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">response</span> <span class="k">in</span>
+        <span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;statusCode -- </span><span class="si">\(</span><span class="n">response</span><span class="p">.</span><span class="n">statusCode</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot; ===== cache =====&quot;</span><span class="p">)</span>
+    <span class="p">}).</span><span class="n">disposed</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="n">disposeBag</span><span class="p">)</span>
+
+<span class="c1">// 传统方式</span>
+<span class="cm">/*</span>
+<span class="cm">let _ = lxfNetTool.cacheRequest(.data(type: .all, size: 10, index: 1)) { result in</span>
+<span class="cm">    guard let resp = result.value else { return }</span>
+<span class="cm">    log.debug(&quot;statusCode -- \(resp.statusCode)&quot;)</span>
+<span class="cm">}</span>
+<span class="cm">*/</span>
+</pre></div>
+
+
+<p>打印</p>
+<div class="codehilite"><pre><span></span>// 第一次使用
+statusCode -- 200
+
+// 关闭并重新打开APP，再请求一下
+statusCode -- 230
+statusCode -- 200
+
+// 然后再请求一下
+statusCode -- 200
+</pre></div>
                 
                   
                 

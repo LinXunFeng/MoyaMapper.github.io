@@ -642,7 +642,7 @@
 <p>如果为 <code>nil</code> ，则取当前 <code>Response</code> 的 <code>ModelableParameterType</code> 为取值依据</p>
 <p><font color="red">ps:  当前<code>Response</code> 的 <code>ModelableParameterType</code> 可以通过 <code>MoyaMapperPlugin</code> 进行统一设置 </font></p>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
-<p><img alt="success-obj" src="https://github.com/MoyaMapper/MoyaMapper.github.io/raw/master/img/code/success-obj.png" /></p>
+<p><img alt="success-obj" src="../../img/code/success-obj.png" /></p>
 <p>调用 <code>toJSON</code> 并传入需要指定的 <code>modelKey</code></p>
 <div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">json</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">toJSON</span><span class="p">(</span><span class="n">modelKey</span><span class="p">:</span> <span class="s">&quot;retBody&quot;</span><span class="p">)</span>
 <span class="kd">let</span> <span class="nv">name</span> <span class="p">=</span> <span class="n">json</span><span class="p">[</span><span class="s">&quot;author&quot;</span><span class="p">].</span><span class="n">stringValue</span>

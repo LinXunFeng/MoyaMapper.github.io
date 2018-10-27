@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#cocoapods" tabindex="1" class="md-skip">
+      <a href="#feature" tabindex="1" class="md-skip">
         跳转至
       </a>
     
@@ -264,6 +264,13 @@
   
     <label class="md-nav__title" for="__toc">目录</label>
     <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#feature" title="Feature" class="md-nav__link">
+    Feature
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#cocoapods" title="CocoaPods" class="md-nav__link">
@@ -590,6 +597,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#feature" title="Feature" class="md-nav__link">
+    Feature
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cocoapods" title="CocoaPods" class="md-nav__link">
     CocoaPods
   </a>
@@ -618,10 +632,33 @@
                   <h1>Home</h1>
                 
                 <p><img alt="MoyaMapper" src="https://github.com/MoyaMapper/MoyaMapper.github.io/raw/master/img/MoyaMapper.png" /></p>
-<p><center></p>
-<p><a href="https://cocoapods.org/pods/MoyaMapper"><img alt="" src="https://img.shields.io/badge/author-LinXunFeng-blue.svg" /></a><a href="https://travis-ci.org/LinXunFeng/MoyaMapper"><img alt="CI Status" src="https://img.shields.io/travis/LinXunFeng/MoyaMapper.svg?style=flat" /></a><a href="https://cocoapods.org/pods/MoyaMapper"><img alt="Version" src="https://img.shields.io/cocoapods/v/MoyaMapper.svg?style=flat" /></a><a href="https://cocoapods.org/pods/MoyaMapper"><img alt="License" src="https://img.shields.io/github/license/LinXunFeng/MoyaMapper.svg" /></a><a href="https://cocoapods.org/pods/MoyaMapper"><img alt="Platform" src="https://img.shields.io/cocoapods/p/MoyaMapper.svg?style=flat" /></a></p>
+<p><center>
+<a href="https://cocoapods.org/pods/MoyaMapper"><img alt="" src="https://img.shields.io/badge/author-LinXunFeng-blue.svg" /></a><a href="https://travis-ci.org/LinXunFeng/MoyaMapper"><img alt="CI Status" src="https://travis-ci.org/MoyaMapper/MoyaMapper.svg?branch=master" /></a><a href="https://cocoapods.org/pods/MoyaMapper"><img alt="Version" src="https://img.shields.io/cocoapods/v/MoyaMapper.svg?style=flat" /></a><a href="https://cocoapods.org/pods/MoyaMapper"><img alt="License" src="https://img.shields.io/github/license/LinXunFeng/MoyaMapper.svg" /></a><a href="https://cocoapods.org/pods/MoyaMapper"><img alt="Platform" src="https://img.shields.io/cocoapods/p/MoyaMapper.svg?style=flat" /></a></p>
 <p></center></p>
+<blockquote>
 <p>MoyaMapper是基于Moya和SwiftyJSON封装的工具，以Moya的plugin的方式来实现间接解析，支持RxSwift</p>
+</blockquote>
+<h2 id="feature">Feature<a class="headerlink" href="#feature" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>支持<code>json</code> 转 <code>Model</code>自动映射 与 自定义映射</p>
+</li>
+<li>
+<p>不用担心 <code>json</code> 值的类型，<code>Model</code> 中属性声明的是什么类型，它就是什么类型</p>
+</li>
+<li>
+<p>支持<code>json</code> 字符串转<code>Model</code></p>
+</li>
+<li>
+<p>插件方式，全方位保障<code>Moya.Response</code>，拒绝各种网络问题，没有什么是一个 <code>Response</code> 不能解决的</p>
+</li>
+<li>
+<p>Optional 基于支持数据随意缓存( <code>JSON</code> <code>Number</code> 、<code>String</code>、 <code>Bool</code>、 <code>Moya.Response</code> )</p>
+</li>
+<li>
+<p>Optional 支持网络请求缓存 </p>
+</li>
+</ul>
 <h2 id="cocoapods">CocoaPods<a class="headerlink" href="#cocoapods" title="Permanent link">&para;</a></h2>
 <ul>
 <li>默认安装</li>
