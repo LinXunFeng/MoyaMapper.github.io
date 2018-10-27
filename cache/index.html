@@ -725,11 +725,70 @@ MMCache.shared.fetch`XXX`Cache(key: String, cacheContainer: MMCache.CacheContain
 </pre></div>
 
 
+<p>再来看看MMCache.CacheContainer</p>
+<div class="codehilite"><pre><span></span><span class="kd">enum</span> <span class="nc">CacheContainer</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">RAM</span>    <span class="c1">// 只缓存于内存的容器</span>
+    <span class="k">case</span> <span class="n">hybrid</span> <span class="c1">// 缓存于内存与磁盘的容器</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<blockquote>
+<p>这两种容器互不相通，即 即使key相同，使用 <code>hybrid</code> 来缓存后，再通过 <code>RAM</code> 取值是取不到的。</p>
+</blockquote>
+<ul>
+<li>RAM : 仅缓存于内存之中，缓存的数据在APP使用期间一直存在</li>
+<li>hybrid ：缓存于内存与磁盘中，APP重启后也可以获取到数据</li>
+</ul>
 <h2 id="_2">缓存网络请求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>内部缓存过程：</p>
+<ul>
+<li>APP首次启动并进行网络请求，网络数据将缓存起来</li>
+<li>APP再次启动并进行网络请求时，会先加载缓存，再加载网络数据</li>
+<li>其它情况只会加载网络数据</li>
+<li>每次成功请求到数据都会进行数据更新</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="c1">// Normal</span>
+<span class="kd">func</span> <span class="nf">cacheRequest</span><span class="p">(</span>
+    <span class="kc">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Target</span><span class="p">,</span> 
+    <span class="n">cacheType</span><span class="p">:</span> <span class="n">MMCache</span><span class="p">.</span><span class="n">CacheKeyType</span> <span class="p">=</span> <span class="p">.</span><span class="k">default</span><span class="p">,</span> 
+    <span class="n">callbackQueue</span><span class="p">:</span> <span class="n">DispatchQueue</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span> 
+    <span class="n">progress</span><span class="p">:</span> <span class="n">Moya</span><span class="p">.</span><span class="n">ProgressBlock</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span> 
+    <span class="n">completion</span><span class="p">:</span> <span class="p">@</span><span class="n">escaping</span> <span class="n">Moya</span><span class="p">.</span><span class="n">Completion</span>
+<span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Cancellable</span>
+
+<span class="c1">// Rx</span>
+<span class="kd">func</span> <span class="nf">cacheRequest</span><span class="p">(</span>
+    <span class="kc">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Base</span><span class="p">.</span><span class="n">Target</span><span class="p">,</span> 
+    <span class="n">callbackQueue</span><span class="p">:</span> <span class="n">DispatchQueue</span><span class="p">?</span> <span class="p">=</span> <span class="kc">nil</span><span class="p">,</span> 
+    <span class="n">cacheType</span><span class="p">:</span> <span class="n">MMCache</span><span class="p">.</span><span class="n">CacheKeyType</span> <span class="p">=</span> <span class="p">.</span><span class="k">default</span>
+<span class="p">)</span> <span class="p">-&gt;</span> <span class="n">Observable</span><span class="p">&lt;</span><span class="n">Response</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>可对 <code>Moya</code> 请求后的 <code>Response</code> 进行缓存。 其实与 <code>Moya</code> 自带的方法相比较只多了一个参数 <code>cacheType: MMCache.CacheKeyType</code> ，定义着缓存中的 <code>key</code> ，默认为 <code>default</code> </p>
+<p>下面是 <code>MMCache.CacheKeyType</code> 的定义</p>
+<div class="codehilite"><pre><span></span>/**
+ let cacheKey = [method]baseURL/path
+
+ - default : cacheKey + &quot;?&quot; + parameters
+ - base : cacheKey
+ - custom : cacheKey + &quot;?&quot; + customKey
+ */
+public enum CacheKeyType {
+    case `default`
+    case base
+    case custom(String)
+}
+</pre></div>
+
+
+<p>我们可以来试一下带缓存的请求</p>
 <div class="codehilite"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> * APP第一次启动并进行网络请求，网络数据将缓存起来</span>
 <span class="cm"> * APP再次启动并进行网络请求时，会先加载缓存，再加载网络数据</span>
 <span class="cm"> * 其它情况只会加载网络数据</span>
+<span class="cm"> * 每次成功请求到数据都会进行数据更新</span>
 <span class="cm"> */</span>
 <span class="n">lxfNetTool</span><span class="p">.</span><span class="n">rx</span><span class="p">.</span><span class="n">cacheRequest</span><span class="p">(.</span><span class="n">data</span><span class="p">(</span><span class="n">type</span><span class="p">:</span> <span class="p">.</span><span class="n">all</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="mi">1</span><span class="p">))</span>
     <span class="p">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">response</span> <span class="k">in</span>
@@ -747,7 +806,7 @@ MMCache.shared.fetch`XXX`Cache(key: String, cacheContainer: MMCache.CacheContain
 </pre></div>
 
 
-<p>打印</p>
+<p>打印结果</p>
 <div class="codehilite"><pre><span></span>// 第一次使用
 statusCode -- 200
 

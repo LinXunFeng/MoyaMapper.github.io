@@ -282,8 +282,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#response-model" title="Response --&gt; Model" class="md-nav__link">
-    Response --&gt; Model
+  <a href="#model_1" title="一、定义Model" class="md-nav__link">
+    一、定义Model
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-model" title="二、Response --&gt; Model" class="md-nav__link">
+    二、Response --&gt; Model
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#misc" title="三、Misc" class="md-nav__link">
+    三、Misc
   </a>
   
 </li>
@@ -596,8 +610,22 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#response-model" title="Response --&gt; Model" class="md-nav__link">
-    Response --&gt; Model
+  <a href="#model_1" title="一、定义Model" class="md-nav__link">
+    一、定义Model
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-model" title="二、Response --&gt; Model" class="md-nav__link">
+    二、Response --&gt; Model
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#misc" title="三、Misc" class="md-nav__link">
+    三、Misc
   </a>
   
 </li>
@@ -622,9 +650,14 @@
                 
                 
                 <h1 id="model">Model<a class="headerlink" href="#model" title="Permanent link">&para;</a></h1>
+<h3 id="model_1">一、定义Model<a class="headerlink" href="#model_1" title="Permanent link">&para;</a></h3>
 <p><img alt="success-obj" src="../img/code/success-obj.png" /></p>
+<blockquote>
 <p>支持模型自动映射，不需要考虑源json数据的真实类型，这里统一按<code>Model</code>中属性声明的类型进行转换</p>
-<p>一般情况下如下写法即可</p>
+</blockquote>
+<ul>
+<li>一般情况下如下写法即可</li>
+</ul>
 <div class="codehilite"><pre><span></span><span class="kd">struct</span> <span class="nc">CompanyModel</span><span class="p">:</span> <span class="n">Modelable</span> <span class="p">{</span>
 
     <span class="kd">var</span> <span class="nv">name</span> <span class="p">:</span> <span class="nb">String</span> <span class="p">=</span> <span class="s">&quot;&quot;</span>
@@ -635,7 +668,9 @@
 </pre></div>
 
 
-<p>如果键名需要自定义，则可以实现方法 <code>mutating func mapping(_ json: JSON)</code></p>
+<ul>
+<li>如果键名需要自定义，则可以实现方法 <code>mutating func mapping(_ json: JSON)</code></li>
+</ul>
 <div class="codehilite"><pre><span></span><span class="kd">struct</span> <span class="nc">CompanyModel</span><span class="p">:</span> <span class="n">Modelable</span> <span class="p">{</span>
 
     <span class="kd">var</span> <span class="nv">name</span> <span class="p">:</span> <span class="nb">String</span> <span class="p">=</span> <span class="s">&quot;&quot;</span>
@@ -649,7 +684,9 @@
 </pre></div>
 
 
-<p>支持模型嵌套</p>
+<ul>
+<li>支持模型嵌套</li>
+</ul>
 <div class="codehilite"><pre><span></span><span class="kd">struct</span> <span class="nc">UserModel</span><span class="p">:</span> <span class="n">Modelable</span> <span class="p">{</span>
 
     <span class="kd">var</span> <span class="nv">id</span> <span class="p">:</span> <span class="nb">String</span> <span class="p">=</span> <span class="s">&quot;&quot;</span>
@@ -661,9 +698,11 @@
 </pre></div>
 
 
-<h3 id="response-model">Response --&gt; Model<a class="headerlink" href="#response-model" title="Permanent link">&para;</a></h3>
+<h3 id="response-model">二、Response --&gt; Model<a class="headerlink" href="#response-model" title="Permanent link">&para;</a></h3>
 <blockquote>
-<p>以下示例皆使用了 <code>MoyaMapperPlugin</code> ，所以不需要指定 <code>modelKey</code> ，如果没有则需要指定，否则无法正常解析</p>
+<p>1、以下示例皆使用了 <code>MoyaMapperPlugin</code> ，所以不需要指定 <code>解析路径</code></p>
+<p>2、如果没有使用 <code>MoyaMapperPlugin</code> 则需要指定 <code>解析路径</code>，否则无法正常解析</p>
+<p>ps:  <code>解析路径</code> 可以使用 <code>a&gt;b</code> 这种形式来解决多级路径的问题</p>
 </blockquote>
 <p>如果接口请求后 <code>json</code> 的数据结构与下图类似，则使用 <code>MoyaMapper</code> 是最合适不过了</p>
 <p><img alt="success-obj" src="../img/code/success-obj.png" /></p>
@@ -672,8 +711,10 @@
 <span class="bp">print</span><span class="p">(</span><span class="s">&quot;name -- </span><span class="si">\(</span><span class="n">model</span><span class="p">.</span><span class="n">name</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="bp">print</span><span class="p">(</span><span class="s">&quot;github -- </span><span class="si">\(</span><span class="n">model</span><span class="p">.</span><span class="n">github</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
 
+<span class="c1">// 打印json</span>
+<span class="bp">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">fetchJSONString</span><span class="p">())</span>
+
 <span class="c1">// Rx</span>
-<span class="c1">// 未使用 MoyaMapperPlugin</span>
 <span class="n">rxRequest</span><span class="p">.</span><span class="n">mapObject</span><span class="p">(</span><span class="n">MMModel</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
     <span class="p">.</span><span class="n">subscribe</span><span class="p">(</span><span class="n">onSuccess</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">in</span>
         <span class="bp">print</span><span class="p">(</span><span class="s">&quot;name -- </span><span class="si">\(</span><span class="n">model</span><span class="p">.</span><span class="n">name</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
@@ -688,6 +729,9 @@
 <span class="kd">let</span> <span class="nv">name</span> <span class="p">=</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">name</span>
 <span class="bp">print</span><span class="p">(</span><span class="s">&quot;count -- </span><span class="si">\(</span><span class="n">models</span><span class="p">.</span><span class="bp">count</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="bp">print</span><span class="p">(</span><span class="s">&quot;name -- </span><span class="si">\(</span><span class="n">name</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+
+<span class="c1">// 打印 json 模型数组中第一个的name</span>
+<span class="bp">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">fetchString</span><span class="p">(</span><span class="n">keys</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">]))</span>
 
 <span class="c1">// Rx</span>
 <span class="n">rxRequest</span><span class="p">.</span><span class="n">mapArray</span><span class="p">(</span><span class="n">MMModel</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
@@ -711,6 +755,48 @@
         <span class="bp">print</span><span class="p">(</span><span class="s">&quot;isSuccess -- </span><span class="si">\(</span><span class="n">isSuccess</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span> <span class="c1">// 是否为 &quot;000&quot;</span>
         <span class="bp">print</span><span class="p">(</span><span class="s">&quot;retMsg -- </span><span class="si">\(</span><span class="n">retMsg</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
     <span class="p">}).</span><span class="n">disposed</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="n">disposeBag</span><span class="p">)</span>
+</pre></div>
+
+
+<h3 id="misc">三、Misc<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h3>
+<p>关于 <code>Model</code> 还提供了一些其它比较有用的方法，这里重点说一下 <code>Model</code> 与 <code>JSON字符串</code> 的互转</p>
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">originModels</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">mapArray</span><span class="p">(</span><span class="n">MyModel</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
+
+<span class="kd">let</span> <span class="nv">jsonArrStr</span> <span class="p">=</span> <span class="n">originModels</span><span class="p">.</span><span class="n">toJSONString</span><span class="p">()</span>
+<span class="kd">let</span> <span class="nv">models1</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModels</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonArrStr</span><span class="p">)</span>     <span class="c1">// 不推荐</span>
+<span class="kd">let</span> <span class="nv">models2</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">codeModels</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonArrStr</span><span class="p">)</span>     <span class="c1">// 推荐</span>
+
+<span class="kd">let</span> <span class="nv">model</span> <span class="p">=</span> <span class="n">originModels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="kd">let</span> <span class="nv">jsonStr</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">toJSONString</span><span class="p">()</span>
+<span class="kd">let</span> <span class="nv">model1</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonStr</span><span class="p">)</span>     <span class="c1">// 不推荐</span>
+<span class="kd">let</span> <span class="nv">model2</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">codeModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonStr</span><span class="p">)</span>     <span class="c1">// 推荐</span>
+
+<span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;model1 -- </span><span class="si">\(</span><span class="n">model1</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;model2 -- </span><span class="si">\(</span><span class="n">model2</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>打印结果</p>
+<div class="codehilite"><pre><span></span><span class="n">model1</span> <span class="o">--</span> <span class="n">MyModel</span><span class="p">(</span><span class="n">_id</span><span class="p">:</span> <span class="s">&quot;5a8f5681421aa9133784f94b&quot;</span><span class="p">,</span> <span class="n">created</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">model2</span> <span class="o">--</span> <span class="n">MyModel</span><span class="p">(</span><span class="n">_id</span><span class="p">:</span> <span class="s">&quot;5a8f5681421aa9133784f94b&quot;</span><span class="p">,</span> <span class="n">created</span><span class="p">:</span> <span class="s">&quot;2018-02-23T07:47:12.993Z&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<ul>
+<li>调用<code>toJSONString()</code> 可将 <code>Model</code> 转为 json 字符串，如：<code>"{\"name\" : \"LinXunFeng\"}"</code></li>
+<li><code>mapModel</code> 与 <code>codeModels</code> 都可以将 json 字符串转成对应的 <code>Model</code></li>
+<li><code>codeModel</code> 是仅以 <code>Codable</code> 的解析</li>
+<li><code>mapModel</code> 会先调用 <code>codeModel</code>， 再调用 <code>Model</code> 的 <code>mapping(_ json: JSON)</code> 方法</li>
+</ul>
+<blockquote>
+<p>❗在 <code>模型中定义的属性名</code> 与 <code>后台返回的json中的字段名</code> 不一致时，调用 <code>mapModel</code> 可能会为自定义的属性赋值，导致数据不正确。</p>
+<p>❗综上，在 <code>Model</code> 与  <code>json字符串</code> 的互转中， 建议使用<code>codeModel</code> 。<code>mapModels</code> 和 <code>codeModels</code> 也一样。</p>
+</blockquote>
+<p>以下的方法就不再赘述</p>
+<div class="codehilite"><pre><span></span><span class="kd">func</span> <span class="nf">toData</span><span class="p">()</span> <span class="p">-&gt;</span> <span class="n">Data</span><span class="p">?</span> 
+<span class="kd">func</span> <span class="nf">toDictionary</span><span class="p">()</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="nb">String</span><span class="p">:</span> <span class="nb">Any</span><span class="p">]</span>
+<span class="kd">func</span> <span class="nf">toJSON</span><span class="p">()</span> <span class="p">-&gt;</span> <span class="n">JSON</span> 
 </pre></div>
                 
                   
