@@ -577,6 +577,7 @@
                 
                 
                 <h1 id="plugin">Plugin<a class="headerlink" href="#plugin" title="Permanent link">&para;</a></h1>
+<p>MoyaMapperPlugin 的初始化方法</p>
 <div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">init</span><span class="p">&lt;</span><span class="n">T</span><span class="p">:</span> <span class="n">ModelableParameterType</span><span class="p">&gt;(</span>
     <span class="kc">_</span> <span class="n">type</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span>
     <span class="n">transformError</span><span class="p">:</span> <span class="nb">Bool</span> <span class="p">=</span> <span class="kc">true</span>
@@ -589,12 +590,7 @@
 <p><code>transformError</code> : <code>Bool</code>  是否当网络请求失败时，自动转换请求结果，默认为 true</p>
 </blockquote>
 <ul>
-<li>
-<p>当请求失败的时候，此时的 <code>result.response</code> 为 <code>nil</code>，根据<code>transformError</code>是否<code>true</code> 判断是否创建一个自定义的 <code>response</code> 并返回出去。</p>
-</li>
-<li>
-<p>这里将请求失败进行了统一处理，无论是服务器还是自身网络的问题，statusCode 都为 MMStatusCode.loadFail，但是 errorDescription 会保持原来的样子。</p>
-</li>
+<li>当请求失败的时候，此时的 <code>result.response</code> 为 <code>nil</code>，根据<code>transformError</code>是否<code>true</code> 判断是否创建一个自定义的 <code>response</code> 并返回出去。</li>
 </ul>
 <p>➡ 本来可以请求到的数据内容</p>
 <p><img alt="success-obj" src="../img/code/success-obj.png" /></p>
@@ -609,13 +605,14 @@
 </ul>
 <p><img alt="success-obj" src="../img/code/plugin.png" /></p>
 <ul>
-<li>
-<p><code>retStatus</code> 值会从枚举 <code>MMStatusCode</code> 中取  <code>loadFail.rawValue</code> ，即 <code>700</code> </p>
-</li>
-<li>
-<p>取 类型为 <code>ModelableParameterType</code>  的 <code>type</code> 中 <code>statusCodeKey</code> 所指定的值 为键名</p>
-</li>
+<li>这里将请求失败进行了统一处理，无论是服务器还是自身网络的问题，<code>retStatus</code> 都为 MMStatusCode.loadFail，但是 errorDescription 会保持原来的样子并赋值给 <code>retMsg</code>。</li>
 </ul>
+<blockquote>
+<ul>
+<li><code>retStatus</code> 值会从枚举 <code>MMStatusCode</code> 中取  <code>loadFail.rawValue</code> ，即 <code>700</code> </li>
+<li>取 类型为 <code>ModelableParameterType</code>  的 <code>type</code> 中 <code>statusCodeKey</code> 所指定的值 为键名</li>
+</ul>
+</blockquote>
 <p>ps: 这个时候可以通过判断 <code>retStatus</code> 是否与 <code>MMStatusCode.loadFail.rawValue</code> 相同来判断是否显示加载失败的空白页占位图</p>
                 
                   

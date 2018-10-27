@@ -742,12 +742,12 @@ MMCache.shared.fetch`XXX`Cache(key: String, cacheContainer: MMCache.CacheContain
 </ul>
 <h2 id="_2">缓存网络请求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>内部缓存过程：</p>
-<ul>
+<ol>
 <li>APP首次启动并进行网络请求，网络数据将缓存起来</li>
 <li>APP再次启动并进行网络请求时，会先加载缓存，再加载网络数据</li>
 <li>其它情况只会加载网络数据</li>
 <li>每次成功请求到数据都会进行数据更新</li>
-</ul>
+</ol>
 <div class="codehilite"><pre><span></span><span class="c1">// Normal</span>
 <span class="kd">func</span> <span class="nf">cacheRequest</span><span class="p">(</span>
     <span class="kc">_</span> <span class="n">target</span><span class="p">:</span> <span class="n">Target</span><span class="p">,</span> 
@@ -766,7 +766,9 @@ MMCache.shared.fetch`XXX`Cache(key: String, cacheContainer: MMCache.CacheContain
 </pre></div>
 
 
+<blockquote>
 <p>可对 <code>Moya</code> 请求后的 <code>Response</code> 进行缓存。 其实与 <code>Moya</code> 自带的方法相比较只多了一个参数 <code>cacheType: MMCache.CacheKeyType</code> ，定义着缓存中的 <code>key</code> ，默认为 <code>default</code> </p>
+</blockquote>
 <p>下面是 <code>MMCache.CacheKeyType</code> 的定义</p>
 <div class="codehilite"><pre><span></span>/**
  let cacheKey = [method]baseURL/path
@@ -783,6 +785,9 @@ public enum CacheKeyType {
 </pre></div>
 
 
+<blockquote>
+<p>如果你想缓存<code>多页</code>列表数据的<code>最新一页</code>的数据，则可以使用 <code>base</code> 或者 <code>custom(String)</code> </p>
+</blockquote>
 <p>我们可以来试一下带缓存的请求</p>
 <div class="codehilite"><pre><span></span><span class="cm">/*</span>
 <span class="cm"> * APP第一次启动并进行网络请求，网络数据将缓存起来</span>
