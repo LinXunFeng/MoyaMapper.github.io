@@ -725,6 +725,35 @@ MMCache.shared.fetch`XXX`Cache(key: String, cacheContainer: MMCache.CacheContain
 </pre></div>
 
 
+<p>针对遵守 <code>Modelable</code> 的 <code>Model</code>，<code>MMCache</code> 提供了额外两套方法，下面以 <code>MyModel</code> 为例</p>
+<div class="codehilite"><pre><span></span><span class="kd">struct</span> <span class="nc">MyModel</span><span class="p">:</span> <span class="n">Modelable</span> <span class="p">{}</span>
+</pre></div>
+
+
+<ul>
+<li>模型</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="c1">// 缓存模型</span>
+<span class="p">@</span><span class="n">discardableResult</span>
+<span class="n">myModel</span><span class="p">.</span><span class="n">cache</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">cacheContainer</span><span class="p">:</span> <span class="n">MMCache</span><span class="p">.</span><span class="n">CacheContainer</span> <span class="p">=</span> <span class="p">.</span><span class="n">RAM</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span>
+
+<span class="c1">// 取出模型缓存</span>
+<span class="n">MyModel</span><span class="p">.</span><span class="n">fromCache</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">cacheContainer</span><span class="p">:</span> <span class="n">MMCache</span><span class="p">.</span><span class="n">CacheContainer</span> <span class="p">=</span> <span class="p">.</span><span class="n">RAM</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">MyModel</span><span class="p">]</span>
+</pre></div>
+
+
+<ul>
+<li>模型数组</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="c1">// 缓存模型数组</span>
+<span class="p">@</span><span class="n">discardableResult</span>
+<span class="n">myModels</span><span class="p">.</span><span class="n">cache</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">cacheContainer</span><span class="p">:</span> <span class="n">MMCache</span><span class="p">.</span><span class="n">CacheContainer</span> <span class="p">=</span> <span class="p">.</span><span class="n">RAM</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="nb">Bool</span>
+
+<span class="c1">// 取出模型数组缓存</span>
+<span class="p">[</span><span class="n">MyModel</span><span class="p">].</span><span class="n">fromCache</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">String</span><span class="p">,</span> <span class="n">cacheContainer</span><span class="p">:</span> <span class="n">MMCache</span><span class="p">.</span><span class="n">CacheContainer</span> <span class="p">=</span> <span class="p">.</span><span class="n">RAM</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="n">MyModel</span>
+</pre></div>
+
+
 <p>再来看看MMCache.CacheContainer</p>
 <div class="codehilite"><pre><span></span><span class="kd">enum</span> <span class="nc">CacheContainer</span> <span class="p">{</span>
     <span class="k">case</span> <span class="n">RAM</span>    <span class="c1">// 只缓存于内存的容器</span>
