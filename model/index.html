@@ -759,17 +759,42 @@
 
 
 <h3 id="misc">三、Misc<a class="headerlink" href="#misc" title="Permanent link">&para;</a></h3>
-<p>关于 <code>Model</code> 还提供了一些其它比较有用的方法，这里重点说一下 <code>Model</code> 与 <code>JSON字符串</code> 的互转</p>
+<p>关于 <code>Model</code> 还提供了一些其它比较有用的方法</p>
+<p>1.2.3版本开始已支持将 <code>Data、字典、json字符串</code> 等转为 <code>Modelable</code>，</p>
+<div class="codehilite"><pre><span></span><span class="c1">/// Modelable -&gt; mapping -&gt; Model</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">mapModel</span><span class="p">(</span><span class="n">from</span> <span class="n">object</span><span class="p">:</span> <span class="nb">Any</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="kc">Self</span>
+<span class="c1">/// Modelable -&gt; mapping -&gt; Models</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">mapModels</span><span class="p">(</span><span class="n">from</span> <span class="n">object</span><span class="p">:</span> <span class="nb">Any</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="kc">Self</span><span class="p">]</span>
+
+<span class="c1">/// Codeable -&gt; Model</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">codeModel</span><span class="p">(</span><span class="n">from</span> <span class="n">object</span><span class="p">:</span> <span class="nb">Any</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="kc">Self</span>
+<span class="c1">/// Codeable -&gt; Models</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">codeModels</span><span class="p">(</span><span class="n">from</span> <span class="n">object</span><span class="p">:</span> <span class="nb">Any</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="p">[</span><span class="kc">Self</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Example</p>
+<div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">model</span> <span class="p">=</span> <span class="n">models</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="kd">let</span> <span class="nv">jsonData</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">toData</span><span class="p">()</span>
+<span class="kd">let</span> <span class="nv">jsonDict</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">toDictionary</span><span class="p">()</span>
+<span class="kd">let</span> <span class="nv">jsonString</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">toJSONString</span><span class="p">()</span>
+<span class="kd">let</span> <span class="nv">model1</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonData</span><span class="p">!)</span>
+<span class="kd">let</span> <span class="nv">model2</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonDict</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nv">model3</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonString</span><span class="p">)</span>
+</pre></div>
+
+
+<p>这里重点提一下 <code>mapModel</code> 与 <code>codeModel</code> 的区别，这里以 <code>toJSONString</code> 为例</p>
 <div class="codehilite"><pre><span></span><span class="kd">let</span> <span class="nv">originModels</span> <span class="p">=</span> <span class="n">response</span><span class="p">.</span><span class="n">mapArray</span><span class="p">(</span><span class="n">MyModel</span><span class="p">.</span><span class="kc">self</span><span class="p">)</span>
 
 <span class="kd">let</span> <span class="nv">jsonArrStr</span> <span class="p">=</span> <span class="n">originModels</span><span class="p">.</span><span class="n">toJSONString</span><span class="p">()</span>
-<span class="kd">let</span> <span class="nv">models1</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModels</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonArrStr</span><span class="p">)</span>     <span class="c1">// 不推荐</span>
-<span class="kd">let</span> <span class="nv">models2</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">codeModels</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonArrStr</span><span class="p">)</span>     <span class="c1">// 推荐</span>
+<span class="kd">let</span> <span class="nv">models1</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModels</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonArrStr</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nv">models2</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">codeModels</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonArrStr</span><span class="p">)</span>
 
 <span class="kd">let</span> <span class="nv">model</span> <span class="p">=</span> <span class="n">originModels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="kd">let</span> <span class="nv">jsonStr</span> <span class="p">=</span> <span class="n">model</span><span class="p">.</span><span class="n">toJSONString</span><span class="p">()</span>
-<span class="kd">let</span> <span class="nv">model1</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonStr</span><span class="p">)</span>     <span class="c1">// 不推荐</span>
-<span class="kd">let</span> <span class="nv">model2</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">codeModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonStr</span><span class="p">)</span>     <span class="c1">// 推荐</span>
+<span class="kd">let</span> <span class="nv">model1</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">mapModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonStr</span><span class="p">)</span>
+<span class="kd">let</span> <span class="nv">model2</span> <span class="p">=</span> <span class="n">MyModel</span><span class="p">.</span><span class="n">codeModel</span><span class="p">(</span><span class="n">from</span><span class="p">:</span> <span class="n">jsonStr</span><span class="p">)</span>
 
 <span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;model1 -- </span><span class="si">\(</span><span class="n">model1</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="n">log</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;model2 -- </span><span class="si">\(</span><span class="n">model2</span><span class="si">)</span><span class="s">&quot;</span><span class="p">)</span>
@@ -785,13 +810,14 @@
 
 <ul>
 <li>调用<code>toJSONString()</code> 可将 <code>Model</code> 转为 json 字符串，如：<code>"{\"name\" : \"LinXunFeng\"}"</code></li>
-<li><code>mapModel</code> 与 <code>codeModels</code> 都可以将 json 字符串转成对应的 <code>Model</code></li>
+<li><code>mapModel</code> 与 <code>codeModels</code> 都可以将 <code>Data、字典、json字符串</code> 等 转成对应的 <code>Modelable</code></li>
 <li><code>codeModel</code> 是仅以 <code>Codable</code> 的解析</li>
 <li><code>mapModel</code> 会先调用 <code>codeModel</code>， 再调用 <code>Model</code> 的 <code>mapping(_ json: JSON)</code> 方法</li>
 </ul>
 <blockquote>
-<p>❗在 <code>模型中定义的属性名</code> 与 <code>后台返回的json中的字段名</code> 不一致时，调用 <code>mapModel</code> 可能会为自定义的属性赋值，导致数据不正确。</p>
-<p>❗综上，在 <code>Model</code> 与  <code>json字符串</code> 的互转中， 建议使用<code>codeModel</code> 。<code>mapModels</code> 和 <code>codeModels</code> 也一样。</p>
+<p>❗在 <code>模型中定义的属性名</code> 与 <code>后台返回的json中的字段名</code> 不一致时，需要调用 <code>mapModel</code> 方法来转换出<code>Modelable</code>。如果没有出入，那调用<code>mapModel</code>或者<code>codeModel</code> 的效果是一样。</p>
+<p>❗如果是通过 <code>mapModel</code> 转换出 <code>Modelable</code> 后，再转换出来 <code>Data/字典/JSON字符串</code>，那转换出来的这个数据是已经通过<code>mapping</code>修正过的了，这时要想再转换为<code>Modelable</code> 就得使用<code>codeModel</code>方法！因为修正后，之前有出入的字段已经没有了。</p>
+<p><code>mapModels</code> 和 <code>codeModels</code> 也是一样，请参考上述内容。</p>
 </blockquote>
 <p>以下的方法就不再赘述</p>
 <div class="codehilite"><pre><span></span><span class="kd">func</span> <span class="nf">toData</span><span class="p">()</span> <span class="p">-&gt;</span> <span class="n">Data</span><span class="p">?</span> 
