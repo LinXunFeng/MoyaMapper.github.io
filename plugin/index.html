@@ -613,10 +613,17 @@
 <li>取 类型为 <code>ModelableParameterType</code>  的 <code>type</code> 中 <code>statusCodeKey</code> 所指定的值 为键名</li>
 </ul>
 </blockquote>
+<div class="codehilite"><pre><span></span><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">MMStatusCode</span><span class="p">:</span> <span class="nb">Int</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">cache</span> <span class="p">=</span> <span class="mi">230</span>        <span class="c1">// 取出缓存数据</span>
+    <span class="k">case</span> <span class="n">loadFail</span> <span class="p">=</span> <span class="mi">700</span> <span class="c1">// 网络请求失败</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <p>ps: </p>
 <ol>
 <li>可以通过判断 <code>retStatus</code> 是否与 <code>MMStatusCode.loadFail.rawValue</code> 相同来判断是否显示加载失败的空白页占位图</li>
-<li><code>retStatus</code> 的值只有在请求失败的请求下，<code>MoyaMapperPlugin</code> 才会去修改。如从缓存中取出的数据，其 <code>retStatus</code> 还是 <code>000</code>。</li>
+<li><code>retStatus</code> 的值只有在除了正常请求成功的请求下，<code>MoyaMapperPlugin</code> 才会去修改。如从缓存中取出的数据时，其 <code>retStatus</code> 是 <code>230</code>，当网络请求失败时，其 <code>retStatus</code> 为<code>700</code>。</li>
 </ol>
                 
                   
